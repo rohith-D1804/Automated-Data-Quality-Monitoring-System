@@ -165,3 +165,28 @@ This allows business rules to be modified without changing application logic.
 * API data ingestion
 * Multi-user support
 * Cloud deployment
+
+
+
+
+## Implementation Progress
+
+### Day -3 Completed
+
+- Missing Value Checker
+
+Features:
+- Detects missing values using Pandas
+- Returns standardized response format
+- Provides column-wise missing value statistics
+
+Example Output:
+
+{
+    "status": "FAIL",
+    "issue_count": 2,
+    "details": {
+        "customer_id": 1,
+        "amount": 1
+    }
+}
