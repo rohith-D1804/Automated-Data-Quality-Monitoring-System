@@ -1,7 +1,11 @@
+## Missing Value Checker
+
 import pandas as pd
-from validator import check_missing_values as mv
+from validator import run_all_checks
 
 df = pd.read_csv(r"D:\Data Analytics\Automated data monitoring system\data\sample_sale.csv")
-result = mv(df)
+results = run_all_checks(df)
 
-print(result)
+print(results)
+
+

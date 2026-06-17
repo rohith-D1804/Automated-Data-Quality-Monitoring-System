@@ -36,6 +36,21 @@ def check_duplicates(df):
         "details": dict
     }
     """
+
+    duplicate_count = df.duplicated().sum()
+
+    status = "PASS"
+
+    if duplicate_count>0:
+        status = "FAIL"
+
+        return {
+        "status": status,
+        "issue_count": int(duplicate_count),
+        "details": {
+            "duplicate_rows": int(duplicate_count)
+            }
+        }
     pass
 
 
@@ -78,4 +93,9 @@ def run_all_checks(df):
         "details": dict
     }
     """
+    results = {
+        "Missing Values" : check_missing_values(df),
+        "Duplicates" : check_duplicates(df) 
+    }
+    return results
     pass

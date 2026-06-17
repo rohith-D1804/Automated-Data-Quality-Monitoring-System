@@ -171,7 +171,7 @@ This allows business rules to be modified without changing application logic.
 
 ## Implementation Progress
 
-### Day -3 Completed
+### Completed  (Day 3)
 
 - Missing Value Checker
 
@@ -190,3 +190,9 @@ Example Output:
         "amount": 1
     }
 }
+
+### Completed (Day 4)
+
+- Missing Value Checker
+- Duplicate Checker
+- Run all checks
