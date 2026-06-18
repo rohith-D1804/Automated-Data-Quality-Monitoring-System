@@ -60,6 +60,20 @@ Output:
 Purpose:
 Detect abnormal values using the IQR method.
 
+Method:
+
+* Calculate Q1 (25th percentile)
+* Calculate Q3 (75th percentile)
+* Calculate IQR = Q3 - Q1
+* Calculate lower and upper bounds
+* Values outside bounds are considered outliers
+
+Rules:
+
+* Applies only to numeric columns
+* Columns ending with "_id" are excluded from analysis
+* Identifier columns are not considered business metrics
+
 Output:
 
 * Outlier count
@@ -125,7 +139,10 @@ Metrics:
 
 Schema validation is treated separately.
 
-The final quality score is calculated using the issue rates.
+Proposed Formula:
+
+Quality Score =
+100 - Missing Rate - Duplicate Rate - Outlier Rate
 
 ---
 
@@ -156,7 +173,29 @@ This allows business rules to be modified without changing application logic.
 
 ---
 
-## 8. Future Enhancements
+## 8. Current Project Structure
+
+project/
+
+├── data/
+
+├── docs/
+
+│   └── system_design.md
+
+├── validator.py
+
+├── quality_score.py
+
+├── config.py
+
+├── test_validator.py
+
+└── requirements.md
+
+---
+
+## 9. Future Enhancements
 
 * Email alerts
 * Scheduled scans
@@ -165,34 +204,87 @@ This allows business rules to be modified without changing application logic.
 * API data ingestion
 * Multi-user support
 * Cloud deployment
+* AI Data Quality Copilot
 
+---
 
+## 10. Implementation Progress
 
+### Completed (Day 3)
 
-## Implementation Progress
-
-### Completed  (Day 3)
-
-- Missing Value Checker
+#### Missing Value Checker
 
 Features:
-- Detects missing values using Pandas
-- Returns standardized response format
-- Provides column-wise missing value statistics
+
+* Detects missing values using Pandas
+* Returns standardized response format
+* Provides column-wise missing value statistics
 
 Example Output:
 
 {
-    "status": "FAIL",
-    "issue_count": 2,
-    "details": {
-        "customer_id": 1,
-        "amount": 1
-    }
+"status": "FAIL",
+"issue_count": 2,
+"details": {
+"customer_id": 1,
+"amount": 1
 }
+}
+
+---
 
 ### Completed (Day 4)
 
+#### Duplicate Checker
+
+Features:
+
+* Detects duplicate rows
+* Returns duplicate count
+* Uses standardized response format
+
+#### Validation Orchestrator
+
+Features:
+
+* Introduced run_all_checks()
+* Centralized execution of validation modules
+
+---
+
+### Completed (Day 5)
+
+#### Outlier Checker
+
+Features:
+
+* Detects outliers using IQR method
+* Supports all numeric business columns
+* Automatically excludes identifier columns ending with "_id"
+* Returns column-wise outlier statistics
+
+#### Validation Coverage
+
+Current validation modules:
+
 - Missing Value Checker
+
 - Duplicate Checker
-- Run all checks
+
+- Outlier Checker
+
+- run_all_checks() Orchestrator
+
+Pending:
+
+- Schema Validator
+
+- Quality Score Engine
+
+- Database Integration
+
+- Dashboard
+
+- Reporting Module
+
+- Deployment

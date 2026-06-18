@@ -65,6 +65,46 @@ def check_outliers(df):
         "details": dict
     }
     """
+
+    outlier_details = {}
+    total_outliers = 0
+    numeric_columns = [
+        col
+        for col in df.select_dtypes(include = "number").columns
+        if not col.endswith("_id")
+    ]
+
+    for column in numeric_columns:
+        q1 = df[column].quantile(0.25)
+        q3 = df[column].quantile(0.75)
+
+        iqr = q3 - q1
+        lower_bound = q1 - (1.5 * iqr)
+        upper_bound = q3 - (1.5 * iqr)
+
+        outliers = df[
+            (df[column] < lower_bound)
+            | (df[column] > upper_bound)
+        ]
+
+        count = len(outliers)
+
+        if count > 0:
+            outlier_details[column] = count
+            total_outliers += count
+    
+    status = "PASS"
+
+    if total_outliers > 0:
+        status = "FAIL"
+
+    return{
+        "status" : status,
+        "issue_count" : total_outliers,
+        "details" : outlier_details
+    }
+
+
     pass
 
 
@@ -95,7 +135,8 @@ def run_all_checks(df):
     """
     results = {
         "Missing Values" : check_missing_values(df),
-        "Duplicates" : check_duplicates(df) 
+        "Duplicates" : check_duplicates(df), 
+        "Outliers" : check_outliers(df)
     }
     return results
     pass
