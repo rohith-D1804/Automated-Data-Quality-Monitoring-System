@@ -1,3 +1,5 @@
+from config import EXPECTED_COLUMNS
+
 ## Check missing values
 def check_missing_values(df):
     """
@@ -112,13 +114,44 @@ def check_outliers(df):
 ## Checks Schema 
 def check_schema(df):
     """
-    Returns:
-    {
-        "status": "PASS/FAIL",
-        "issue_count": int,
-        "details": dict
-    }
+    Validate dataset schema.
+
+    Checks:
+    - Missing columns
+    - Extra columns
     """
+
+    actual_columns = set(df.columns)
+
+    expected_columns = set(EXPECTED_COLUMNS)
+
+    missing_columns = list(
+        expected_columns - actual_columns
+    )
+
+    extra_columns = list(
+        actual_columns - expected_columns
+    )
+
+    issue_count = (
+        len(missing_columns)
+        + len(extra_columns)
+    )
+
+    status = "PASS"
+
+    if issue_count > 0:
+        status = "FAIL"
+
+    return {
+        "status": status,
+        "issue_count": issue_count,
+        "details": {
+            "missing_columns": missing_columns,
+            "extra_columns": extra_columns
+        }
+    }
+
     pass
 
 
@@ -136,7 +169,8 @@ def run_all_checks(df):
     results = {
         "Missing Values" : check_missing_values(df),
         "Duplicates" : check_duplicates(df), 
-        "Outliers" : check_outliers(df)
+        "Outliers" : check_outliers(df),
+        "Schema" : check_schema(df)
     }
     return results
     pass

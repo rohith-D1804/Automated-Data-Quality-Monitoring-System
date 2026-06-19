@@ -9,3 +9,11 @@ MAX_DUPLICATE_RATE = 2.0
 MAX_OUTLIER_RATE = 3.0
 
 STRICT_SCHEMA_VALIDATION = True
+
+
+EXPECTED_COLUMNS = [
+    "order_id",
+    "customer_id",
+    "amount",
+    "quantity"
+]

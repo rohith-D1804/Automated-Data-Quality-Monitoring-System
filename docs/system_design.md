@@ -263,6 +263,14 @@ Features:
 * Automatically excludes identifier columns ending with "_id"
 * Returns column-wise outlier statistics
 
+### Completed (Day 6)
+
+#### Schema Validator
+
+- Missing columns are treated as schema violations.
+- Extra columns are treated as schema violations in the MVP.
+- Future versions may classify extra columns as warnings.
+
 #### Validation Coverage
 
 Current validation modules:
@@ -276,8 +284,6 @@ Current validation modules:
 - run_all_checks() Orchestrator
 
 Pending:
-
-- Schema Validator
 
 - Quality Score Engine
 
