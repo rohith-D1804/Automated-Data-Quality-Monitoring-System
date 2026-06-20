@@ -271,6 +271,24 @@ Features:
 - Extra columns are treated as schema violations in the MVP.
 - Future versions may classify extra columns as warnings.
 
+### Completed (Day 7)
+
+#### Quality Score Engine
+
+Features:
+- Calculates quality score using issue rates
+- Uses percentage-based scoring
+- Supports quality categories
+- Generates overall quality status
+
+Formula:
+
+Quality Score =
+100
+- Missing Rate
+- Duplicate Rate
+- Outlier Rate
+
 #### Validation Coverage
 
 Current validation modules:
@@ -285,7 +303,6 @@ Current validation modules:
 
 Pending:
 
-- Quality Score Engine
 
 - Database Integration
 

@@ -167,10 +167,10 @@ def run_all_checks(df):
     }
     """
     results = {
-        "Missing Values" : check_missing_values(df),
-        "Duplicates" : check_duplicates(df), 
-        "Outliers" : check_outliers(df),
-        "Schema" : check_schema(df)
+        "missing_values" : check_missing_values(df),
+        "duplicates" : check_duplicates(df), 
+        "outliers" : check_outliers(df),
+        "schema" : check_schema(df)
     }
     return results
     pass
