@@ -1,5 +1,5 @@
 import sqlite3
-
+import pandas as pd
 
 def get_connection():
     return sqlite3.connect("data_quality.db")
@@ -107,5 +107,21 @@ def show_results():
     conn.close()
 
 
-from database import show_results
-show_results()
+def get_scan_history():
+
+    conn = get_connection()
+
+    query = """
+    SELECT *
+    FROM scan_results
+    ORDER BY id DESC
+    """
+
+    df = pd.read_sql_query(
+        query,
+        conn
+    )
+
+    conn.close()
+
+    return df
