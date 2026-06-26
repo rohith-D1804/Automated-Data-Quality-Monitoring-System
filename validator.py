@@ -25,7 +25,7 @@ def check_missing_values(df):
         "issue_count": total_missing,
         "details": missing_dict
     }
-    pass
+
 
 
 ## Check duplicate values
@@ -46,14 +46,14 @@ def check_duplicates(df):
     if duplicate_count>0:
         status = "FAIL"
 
-        return {
+    return {
         "status": status,
         "issue_count": int(duplicate_count),
         "details": {
             "duplicate_rows": int(duplicate_count)
-            }
         }
-    pass
+    }
+
 
 
 
@@ -82,7 +82,7 @@ def check_outliers(df):
 
         iqr = q3 - q1
         lower_bound = q1 - (1.5 * iqr)
-        upper_bound = q3 - (1.5 * iqr)
+        upper_bound = q3 + (1.5 * iqr)
 
         outliers = df[
             (df[column] < lower_bound)
@@ -106,8 +106,6 @@ def check_outliers(df):
         "details" : outlier_details
     }
 
-
-    pass
 
 
 
@@ -152,7 +150,7 @@ def check_schema(df):
         }
     }
 
-    pass
+
 
 
 
@@ -173,4 +171,3 @@ def run_all_checks(df):
         "schema" : check_schema(df)
     }
     return results
-    pass
